@@ -262,7 +262,7 @@ export function CryptoWalletComponent() {
               initialVelocityY={25}
               gravity={0.3}
               tweenDuration={100}
-              spread={180}
+              // spread={180}
             />
           </div>
         )}
