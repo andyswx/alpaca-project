@@ -15,7 +15,7 @@ export function CryptoWalletComponent() {
   const [currentPage, setCurrentPage] = useState('home')
   const [isConfettiActive, setIsConfettiActive] = useState(false)
   const [isTransactionComplete, setIsTransactionComplete] = useState(false)
-  const [confettiOrigin, setConfettiOrigin] = useState({ x: 0, y: 0 })
+  const [confettiOrigin, setConfettiOrigin] = useState({ x: 0, y: 0, w: 0, h: 0 })
   const [amount, setAmount] = useState('')
   const [message, setMessage] = useState('')
   const sendButtonRef = useRef<HTMLButtonElement>(null)
@@ -29,7 +29,9 @@ export function CryptoWalletComponent() {
       const containerRect = containerRef.current.getBoundingClientRect()
       setConfettiOrigin({
         x: rect.left - containerRect.left + rect.width / 2,
-        y: rect.top - containerRect.top + rect.height / 2
+        y: rect.top - containerRect.top + rect.height / 2,
+        w: 10,
+        h: 10
       })
     }
     setIsConfettiActive(true)
