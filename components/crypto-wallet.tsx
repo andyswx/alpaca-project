@@ -1,13 +1,13 @@
 'use client'
 
-import { useState, useEffect, useRef } from 'react'
-import { Bell, ChevronRight, Home, Rocket, FileText, User, X, Wallet, Settings, PlusCircle } from 'lucide-react'
+import { useState, useRef } from 'react'
+import { Bell, Home, Rocket, FileText, User, Wallet, PlusCircle } from 'lucide-react'
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from "@/components/ui/dialog"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
+import { Avatar, AvatarFallback } from "@/components/ui/avatar"
 import { Textarea } from "@/components/ui/textarea"
 import Confetti from 'react-confetti'
 
@@ -16,10 +16,12 @@ export function CryptoWalletComponent() {
   const [isConfettiActive, setIsConfettiActive] = useState(false)
   const [isTransactionComplete, setIsTransactionComplete] = useState(false)
   const [confettiOrigin, setConfettiOrigin] = useState({ x: 0, y: 0 })
+  const [amount, setAmount] = useState('')
+  const [message, setMessage] = useState('')
   const sendButtonRef = useRef(null)
   const containerRef = useRef(null)
 
-  const handleSend = (e) => {
+  const handleSend = () => {
     if (sendButtonRef.current && containerRef.current) {
       const rect = sendButtonRef.current.getBoundingClientRect()
       const containerRect = containerRef.current.getBoundingClientRect()
@@ -48,7 +50,7 @@ export function CryptoWalletComponent() {
             <span className="text-white text-2xl">🐷</span>
           </div>
           <div>
-            <h1 className="text-xl font-bold">GM, Joseph Phillips</h1>
+            <h1 className="text-xl font-bold text-black">GM, Joseph Phillips</h1>
             <p className="text-sm text-gray-600">@jo.phillips</p>
           </div>
         </div>
@@ -59,7 +61,7 @@ export function CryptoWalletComponent() {
         <div className="flex justify-between p-4 bg-white rounded-lg mt-4">
           <div>
             <p className="text-sm text-gray-600">Total balance</p>
-            <p className="text-2xl font-bold">$8,581.58</p>
+            <p className="text-2xl font-bold text-black">$8,581.58</p>
           </div>
           <div className="flex flex-col items-end">
             <p className="text-sm text-gray-600">Earned</p>
@@ -69,7 +71,7 @@ export function CryptoWalletComponent() {
 
         <div className="mt-6">
           <div className="flex justify-between items-center mb-4">
-            <h2 className="text-xl font-bold">Cards</h2>
+            <h2 className="text-lg font-semibold text-black">Cards</h2>
             <button className="text-blue-500">Add another card +</button>
           </div>
           <div className="bg-purple-500 p-4 rounded-lg text-white">
@@ -80,7 +82,7 @@ export function CryptoWalletComponent() {
         </div>
 
         <div className="mt-6">
-          <h2 className="text-xl font-bold mb-4">Wallets</h2>
+          <h2 className="text-lg font-semibold text-black mb-2">Wallets</h2>
           <div className="bg-gradient-to-r from-orange-400 to-red-500 p-4 rounded-lg text-white">
             <p>Primary</p>
             <p className="text-sm mb-2">0x35s6e...7be65</p>
@@ -89,7 +91,7 @@ export function CryptoWalletComponent() {
         </div>
 
         <div className="mt-6">
-          <h2 className="text-xl font-bold mb-4">Balances</h2>
+          <h2 className="text-lg font-semibold text-black mb-2">Balances</h2>
           <div className="space-y-4">
             {[
               { name: 'Tether USD', symbol: 'USDT', balance: '$18.76', change: '+ 0.81%' },
@@ -98,16 +100,16 @@ export function CryptoWalletComponent() {
             ].map((coin) => (
               <div key={coin.symbol} className="flex items-center justify-between bg-white p-3 rounded-lg">
                 <div className="flex items-center space-x-3">
-                  <div className="w-10 h-10 bg-gray-200 rounded-full flex items-center justify-center">
+                  <div className="w-10 h-10 bg-gray-200 rounded-full flex items-center justify-center text-black">
                     {coin.symbol[0]}
                   </div>
                   <div>
-                    <p className="font-semibold">{coin.name}</p>
+                    <p className="font-semibold text-black">{coin.name}</p>
                     <p className="text-sm text-gray-600">{coin.symbol}</p>
                   </div>
                 </div>
                 <div className="text-right">
-                  <p className="font-semibold">{coin.balance}</p>
+                  <p className="font-semibold text-black">{coin.balance}</p>
                   <p className="text-sm text-green-500">{coin.change}</p>
                 </div>
               </div>
@@ -153,7 +155,14 @@ export function CryptoWalletComponent() {
               </div>
               <div>
                 <label htmlFor="amount" className="block text-sm font-medium text-gray-700">Amount</label>
-                <Input id="amount" placeholder="Amount" className="mt-1" />
+                <Input
+                  id="amount"
+                  type="number"
+                  placeholder="0.00"
+                  value={amount}
+                  onChange={(e) => setAmount(e.target.value)}
+                  className="pl-8"
+                />
               </div>
               <div>
                 <label htmlFor="chain" className="block text-sm font-medium text-gray-700">Chain</label>
@@ -182,7 +191,12 @@ export function CryptoWalletComponent() {
               </div>
               <div>
                 <label htmlFor="message" className="block text-sm font-medium text-gray-700">Message</label>
-                <Textarea id="message" placeholder="Message 😊" className="mt-1" />
+                <Textarea
+                  id="message"
+                  placeholder="Enter a message"
+                  value={message}
+                  onChange={(e) => setMessage(e.target.value)}
+                />
               </div>
               <Button type="submit" className="w-full" ref={sendButtonRef}>Send</Button>
             </form>
