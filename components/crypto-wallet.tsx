@@ -162,7 +162,8 @@ export function CryptoWalletComponent() {
                   type="number"
                   placeholder="0.00"
                   value={amount}
-                  onChange={(e) => setAmount(e.target.value)}
+                  // onChange={(e) => setAmount(e.target.value)}
+                  onChange={(e: React.ChangeEvent<HTMLInputElement>) => setAmount(e.target.value)}
                   className="pl-8"
                 />
               </div>
@@ -197,7 +198,8 @@ export function CryptoWalletComponent() {
                   id="message"
                   placeholder="Enter a message"
                   value={message}
-                  onChange={(e) => setMessage(e.target.value)}
+                  // onChange={(e) => setMessage(e.target.value)}
+                  onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => setMessage(e.target.value)}
                 />
               </div>
               <Button type="submit" className="w-full" ref={sendButtonRef}>Send</Button>
