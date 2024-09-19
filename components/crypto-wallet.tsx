@@ -21,7 +21,9 @@ export function CryptoWalletComponent() {
   const sendButtonRef = useRef<HTMLButtonElement>(null)
   const containerRef = useRef<HTMLDivElement>(null)
 
-  const handleSend = () => {
+  // const handleSend = () => {
+  const handleSend = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
     if (sendButtonRef.current && containerRef.current) {
       const rect = sendButtonRef.current.getBoundingClientRect()
       const containerRect = containerRef.current.getBoundingClientRect()
