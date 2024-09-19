@@ -18,8 +18,8 @@ export function CryptoWalletComponent() {
   const [confettiOrigin, setConfettiOrigin] = useState({ x: 0, y: 0 })
   const [amount, setAmount] = useState('')
   const [message, setMessage] = useState('')
-  const sendButtonRef = useRef(null)
-  const containerRef = useRef(null)
+  const sendButtonRef = useRef<HTMLButtonElement>(null)
+  const containerRef = useRef<HTMLDivElement>(null)
 
   const handleSend = () => {
     if (sendButtonRef.current && containerRef.current) {
